@@ -1,0 +1,63 @@
+[colors.bright]
+black = "0x72696a"
+blue = "0xf38d70"
+cyan = "0x85dacc"
+green = "0xadda78"
+magenta = "0xa8a9eb"
+red = "0xfd6883"
+white = "0xfff1f3"
+yellow = "0xf9cc6c"
+
+[colors.cursor]
+cursor = "0xffffff"
+text = "0xfafafa"
+
+[colors.normal]
+black = "0x2c2525"
+blue = "0xf38d70"
+cyan = "0x85dacc"
+green = "0xadda78"
+magenta = "0xa8a9eb"
+red = "0xfd6883"
+white = "0xfff1f3"
+yellow = "0xf9cc6c"
+
+[colors.primary]
+background = "0x000000"
+foreground = "0xfff1f3"
+
+[cursor]
+blink_interval = 500
+blink_timeout = 0
+thickness = 0.15
+unfocused_hollow = false
+vi_mode_style = "Block"
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[font]
+size = 14
+
+[font.normal]
+family = "JetBrainsMono Nerd Font Mono"
+#style = "Bold"
+
+[[keyboard.bindings]]
+action = "None"
+key = "Minus"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "None"
+key = "Plus"
+mods = "Alt"
+
+[window]
+dynamic_padding = false
+opacity = 0.85
+
+[window.padding]
+x = 0
+y = 0
