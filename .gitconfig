@@ -1,0 +1,12 @@
+[user]
+	email = business.quaidrodgers@gmail.com
+	name = Quaid
+[init]
+	defaultBranch = main
+[alias]
+    aam = "!f() { \
+        git add -u && git commit -m \"$1\" && git push -o merge_request.create -o merge_request.target=\"$2\" -o merge_request.merge_when_pipeline_succeeds; \
+        }; f"
+    aap = "!f() { \
+        git add -u && git commit -m \"$1\" && git push origin \"${2:-$(git branch --show-current)}\" && echo \"Pushed to branch ${2:-$(git branch --show-current)}\"; \
+        }; f"
