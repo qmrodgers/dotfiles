@@ -1,11 +1,193 @@
-return { -- Highlight, edit, and navigate code
-	"nvim-treesitter/nvim-treesitter",
-	dependencies = {
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		"RRethy/nvim-treesitter-textsubjects",
+-- NOTE: Various performance suggestions copied from rafi @ https://github.com/rafi/vim-config/blob/master/lua/rafi/plugins/treesitter.lua
+
+local textobjects = {
+	move = {
+		enable = true,
+		set_jumps = true, -- whether to set jumps in the jumplist
+		goto_next_start = {
+			-- ["]f"] = { query = "@call.outer", desc = "Next Function Call (Start)" },
+			-- ["]i"] = { query = "@conditional.outer", desc = "Next Conditional (Start)" },
+			-- ["]l"] = { query = "@loop.outer", desc = "Next Loop (Start)" },
+			-- ["]s"] = { query = "@scope", desc = "Next Scope (Start)" },
+			-- ["]z"] = { query = "@fold", desc = "Next Fold (Start)" },
+			-- ["]b"] = { query = "@block.outer", desc = "Next Block (Start)" },
+			-- ["]a"] = { query = "@parameter.inner", desc = "Next Parameter (Start)" },
+			["]m"] = { query = "@function.outer", desc = "Next Function (Start)" },
+			["]]"] = { query = "@class.outer", desc = "Next Class (Start)" },
+		},
+		goto_next_end = {
+			-- ["]F"] = { query = "@call.outer", desc = "Next Function Call (End)" },
+			-- ["]I"] = { query = "@conditional.outer", desc = "Next Conditional (End)" },
+			-- ["]L"] = { query = "@loop.outer", desc = "Next Loop (End)" },
+			-- ["]S"] = { query = "@scope", desc = "Next Scope (End)" },
+			-- ["]Z"] = { query = "@fold", desc = "Next Fold (End)" },
+			-- ["]B"] = { query = "@block.outer", desc = "Next Block (End)" },
+			-- ["]A"] = { query = "@parameter.inner", desc = "Next Parameter (End)" },
+			["]M"] = { query = "@function.outer", desc = "Next Function (End)" },
+			["]["] = { query = "@class.outer", desc = "Next Class (End)" },
+		},
+		goto_previous_start = {
+			-- ["[f"] = { query = "@call.outer", desc = "Previous Function Call (Start)" },
+			-- ["[i"] = { query = "@conditional.outer", desc = "Previous Conditional (Start)" },
+			-- ["[l"] = { query = "@loop.outer", desc = "Previous Loop (Start)" },
+			-- ["[s"] = { query = "@scope", desc = "Previous Scope (Start)" },
+			-- ["[z"] = { query = "@fold", desc = "Previous Fold (Start)" },
+			-- ["[b"] = { query = "@block.outer", desc = "Previous Block (Start)" },
+			-- ["[a"] = { query = "@parameter.inner", desc = "Previous Parameter (Start)" },
+			["[m"] = { query = "@function.outer", desc = "Previous Function (Start)" },
+			["[["] = { query = "@class.outer", desc = "Previous Class (Start)" },
+		},
+		goto_previous_end = {
+			-- ["[F"] = { query = "@call.outer", desc = "Previous Function Call (End)" },
+			-- ["[I"] = { query = "@conditional.outer", desc = "Previous Conditional (End)" },
+			-- ["[L"] = { query = "@loop.outer", desc = "Previous Loop (End)" },
+			-- ["[S"] = { query = "@scope", desc = "Previous Scope (End)" },
+			-- ["[Z"] = { query = "@fold", desc = "Previous Fold (End)" },
+			-- ["[B"] = { query = "@block.outer", desc = "Previous Block (End)" },
+			-- ["[A"] = { query = "@parameter.inner", desc = "Previous Parameter (End)" },
+			["[M"] = { query = "@function.outer", desc = "Previous Function (End)" },
+			["[]"] = { query = "@plass.outer", desc = "Previous Class (End)" },
+		},
 	},
-	build = ":TSUpdate",
-	config = function()
-		-- NOTE: See after/treesitter.lua
-	end,
+	select = {
+		enable = true,
+		lookahead = true,
+		keymaps = {
+			["a="] = { query = "@assignment.outer", desc = "Select Assignment (Outer)" },
+			["i="] = { query = "@assignment.inner", desc = "Select Assignment (Inner)" },
+			["l="] = { query = "@assignment.lhs", desc = "Select Assignment (LHS)" },
+			["r="] = { query = "@assignment.rhs", desc = "Select Assignment (RHS)" },
+			["a;"] = { query = "@property.outer", desc = "Select Property (Outer)" },
+			["i;"] = { query = "@property.inner", desc = "Select Property (Inner)" },
+			["l;"] = { query = "@property.lhs", desc = "Select Property (LHS)" },
+			["r;"] = { query = "@property.rhs", desc = "Select Property (RHS)" },
+			-- 		["af"] = { query = "@function.outer", desc = "Select Function (Outer)" },
+			-- 		["if"] = { query = "@function.inner", desc = "Select Function (Inner)" },
+			-- 		["ac"] = { query = "@class.outer", desc = "Select Class (Outer)" },
+			-- 		["ic"] = { query = "@class.inner", desc = "Select Class (Innter)" },
+			-- 		["ab"] = { query = "@block.outer", desc = "Select Block (Outer)" },
+			-- 		["ib"] = { query = "@block.inner", desc = "Select Block (Inner)" },
+			-- 		["ai"] = { query = "@conditional.outer", desc = "Select Conditional (Outer)" },
+			-- 		["ii"] = { query = "@conditional.inner", desc = "Select Conditional (Inner)" },
+			-- 		["al"] = { query = "@loop.outer", desc = "Select Loop (Outer)" },
+			-- 		["il"] = { query = "@loop.inner", desc = "Select Loop (Inner)" },
+			["a/"] = { query = "@comment.outer", desc = "Select Comment (Outer)" },
+			["aa"] = { query = "@parameter.outer", desc = "Select Parameter (Outer)" }, -- parameter -> argument
+			["ia"] = { query = "@parameter.pnner", desc = "Select Parameter (Inner)" },
+		},
+	},
+	swap = {
+		enable = true,
+		swap_next = {
+			["<leader>rp"] = "@parameter.inner",
+		},
+		swap_previous = {
+			["<leader>rP"] = "@parameter.inner",
+		},
+	},
+}
+
+return { -- Highlight, edit, and navigate code
+	{
+		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"RRethy/nvim-treesitter-textsubjects",
+			{
+				"andymass/vim-matchup",
+				init = function()
+					vim.g.matchup_matchparen_offscreen = {}
+				end,
+			},
+		},
+		version = false,
+		build = ":TSUpdate",
+		event = { "VeryLazy" },
+		lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+		cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
+		keys = {
+			{ "<C-Space>", desc = "Increment Selection" },
+			{ "v", desc = "Increment Selection", mode = "x" },
+			{ "V", desc = "Decrement Selection", mode = "x" },
+		},
+		opts = {
+			ensure_installed = {
+				"bash",
+				"c",
+				"diff",
+				"html",
+				"lua",
+				"luadoc",
+				"markdown",
+				"markdown_inline",
+				"query",
+				"vim",
+				"vimdoc",
+				"javascript",
+				"python",
+				"rust",
+				"cpp",
+				"json",
+				"typescript",
+				"tsx",
+				"yaml",
+				"svelte",
+				"gitignore",
+				"regex",
+			},
+			-- Autoinstall languages that are not installed
+			auto_install = true,
+			highlight = {
+				enable = true,
+				additional_vim_regex_highlighting = { "ruby" },
+				disable = function(_, buf)
+					local max_filesize = 1024 * 1024 -- 1MB
+					local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+					if ok and stats and stats.size > max_filesize then
+						return true
+					end
+				end,
+			},
+			refactor = {
+				highlight_definitions = { enable = true },
+				highlight_current_scope = { enable = true },
+			},
+			indent = { enable = true, disable = { "ruby" } },
+			matchup = {
+				enable = true,
+				include_match_words = true,
+			},
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<C-Space>",
+					node_incremental = "v",
+					scope_incremental = false,
+					node_decremental = "V",
+				},
+			},
+			textobjects = textobjects,
+			textsubjects = {
+				enable = true,
+				prev_selection = ",",
+				keymaps = {
+					["<cr>"] = "textsubjects-smart",
+					[";"] = "textsubjects-container-outer",
+					["i;"] = "textsubjects-container-inner",
+				},
+			},
+		},
+		init = function(plugin)
+			-- Improve performance by adding to rtp
+			require("lazy.core.loader").add_to_rtp(plugin)
+			require("nvim-treesitter.query_predicates")
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		config = function()
+			if require("nvim-treesitter") then
+				require("nvim-treesitter.configs").setup({ textobjects = textobjects })
+			end
+		end,
+	},
 }
