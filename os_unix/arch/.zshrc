@@ -28,38 +28,3 @@ alias v="nvim"
 alias sv="sudo -E -s nvim"
 alias ll="ls --color=auto -la"
 alias find_font="cat ~/Desktop/nerd_fonts_reference.txt | grep"
-
-nv() {
-    result=""
-    if [ -z "$1" ]; then
-        result=$(prj fzf)
-    else
-        result=$(prj pick $1)
-    fi
-
-    if [ -f "$result" ]; then
-        nvim $result
-    elif [ -d "$result" ]; then
-        cd $result
-        nvim .
-        cd $OLDPWD
-    else
-        echo "Invalid result: $result"
-    fi
-}
-
-cdp() {
-    if [ -z "$1" ]; then
-        cd $(prj fzf)
-    else
-        cd $(prj pick $1)
-    fi
-}
-
-fix_screen() {
-  xrandr --output eDP-1 --mode 1920x1080 --rate 40.02;
-  sleep 5;
-  xrandr --output eDP-1 --mode 1920x1080 --rate 59.97;
-}
-
-autoload -Uz nv cdp fix_screen
