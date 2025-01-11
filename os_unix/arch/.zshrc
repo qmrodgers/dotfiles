@@ -10,7 +10,7 @@ source "${zshrc_dir}/.zshenv"
 # export XDG_CONFIG_HOME=/home/quaidr/.config/
 # export I3_CONFIG_DIR=/home/quaidr/.i3/
 # export ALACRITTY_CONFIG_DIR="~/.config/alacritty/"
-export PRJ="/home/quaidr/Projects/"
+export PROJECTS="/home/quaidr/Projects/"
 
 # Map Ctrl-j, Ctrl-k, Ctrl-h, Ctrl-l to arrow keys
 # bindkey -s '^j' '^[[B'
@@ -32,9 +32,9 @@ alias find_font="cat ~/Desktop/nerd_fonts_reference.txt | grep"
 nv() {
     result=""
     if [ -z "$1" ]; then
-        result=$(project_tool fzf)
+        result=$(prj fzf)
     else
-        result=$(project_tool pick $1)
+        result=$(prj pick $1)
     fi
 
     if [ -f "$result" ]; then
@@ -50,9 +50,9 @@ nv() {
 
 cdp() {
     if [ -z "$1" ]; then
-        cd $(project_tool fzf)
+        cd $(prj fzf)
     else
-        cd $(project_tool pick $1)
+        cd $(prj pick $1)
     fi
 }
 
