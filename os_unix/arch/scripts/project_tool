@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+exec "$(dirname "$0")/project_tool.sh" "$@"

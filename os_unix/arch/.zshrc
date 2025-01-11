@@ -1,6 +1,7 @@
 # SET QUICK ZSH EDIT
 zshrc_dir=$(dirname "${(%):-%x}")
-alias edit_zsh="nvim ${zshrc_dir}/.zshrc"
+export PATH=$PATH:~/.proto/shims
+export PATH=$PATH:~/custom_scripts
 
 # SOURCE HIDDEN ENV VARS
 source "${zshrc_dir}/.zshenv"
@@ -26,15 +27,39 @@ export PRJ="/home/quaidr/Projects/"
 alias v="nvim"
 alias sv="sudo -E -s nvim"
 alias ll="ls --color=auto -la"
-alias prj="cd $PRJ; nvim"
-alias edit_nvim="cd ${XDG_CONFIG_HOME}/nvim ; nvim"
-alias edit_i3="nvim ${I3_CONFIG_DIR}/config"
-alias edit_tmux="nvim ${XDG_CONFIG_HOME}/tmux/.tmux.conf"
 alias find_font="cat ~/Desktop/nerd_fonts_reference.txt | grep"
-function fix_screen() {
+
+nv() {
+    result=""
+    if [ -z "$1" ]; then
+        result=$(project_tool fzf)
+    else
+        result=$(project_tool pick $1)
+    fi
+
+    if [ -f "$result" ]; then
+        nvim $result
+    elif [ -d "$result" ]; then
+        cd $result
+        nvim .
+        cd $OLDPWD
+    else
+        echo "Invalid result: $result"
+    fi
+}
+
+cdp() {
+    if [ -z "$1" ]; then
+        cd $(project_tool fzf)
+    else
+        cd $(project_tool pick $1)
+    fi
+}
+
+fix_screen() {
   xrandr --output eDP-1 --mode 1920x1080 --rate 40.02;
   sleep 5;
   xrandr --output eDP-1 --mode 1920x1080 --rate 59.97;
 }
-export fix_screen
-echo "Initialized .zshrc"
+
+autoload -Uz nv cdp fix_screen
