@@ -2,6 +2,8 @@
 zshrc_dir=$(dirname "${(%):-%x}")
 export PATH=$PATH:~/.proto/shims
 export PATH=$PATH:~/custom_scripts
+export XDG_CONFIG_HOME=$HOME
+export MANPAGER=nvim
 
 # SOURCE HIDDEN ENV VARS
 source "${zshrc_dir}/.zshenv"
@@ -21,6 +23,14 @@ export PROJECTS="/home/quaidr/Projects/"
 # Map Alt-Q to exit
 # k
 
+cdp() {
+if [ -z "$1" ]; then
+    cd $(prj fzf)
+else
+    cd $(prj pick $1)
+fi
+}
+
 
 # bindkey -v    to enable vi mapping
 # ALIAS
@@ -28,3 +38,4 @@ alias v="nvim"
 alias sv="sudo -E -s nvim"
 alias ll="ls --color=auto -la"
 alias find_font="cat ~/Desktop/nerd_fonts_reference.txt | grep"
+autoload -Uz cdp
