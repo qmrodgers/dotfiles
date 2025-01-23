@@ -1,3 +1,11 @@
+exec_always --no-startup-id \
+"cat <<EOF > ~/i3_startup.log
+I3_INIT: $(date)
+----------------
+Beginning initialization...
+
+EOF
+"
 # i3 config file (v4)
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -7,8 +15,7 @@ set $mod Mod4
 
 # set default desktop layout (default is tiling)
 # workspace_layout tabbed <stacking|tabbed>
-font pango:Hack Nerd Font Mono 14
-
+font pango:JetBrainsMono Nerd Font Mono 14
 # Configure border style <normal|1pixel|pixel xx|none|pixel>
 default_border pixel 3
 default_floating_border normal
@@ -23,7 +30,7 @@ bindsym $mod+n border normal
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font xft:Hack Nerd Font Mono 12
+font xft:JetBrainsMono Nerd Font Mono 14
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -145,15 +152,16 @@ bindsym $mod+Ctrl+Left workspace prev
 # to display names or symbols instead of plain workspace numbers you can use
 # something like: set $ws1 1:mail
 #                 set $ws2 2:
-set $ws1 1:󰆍
-set $ws2 2:󰖟
-set $ws3 3:󰉋
-set $ws4 4:󰎆
-set $ws5 5:󰒓
-set $ws6 6:󰇮
-# assign [class="thunderbird"] $ws6
+set $ws1 1
+set $ws2 2
+set $ws3 3
+set $ws4 4
+set $ws5 5
+set $ws6 6
 set $ws7 7
 set $ws8 8
+set $ws9 9
+set $ws10 10
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -164,6 +172,8 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -248,7 +258,7 @@ mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
 
 bindsym $mod+x mode "exit: [l]ogout, [r]eboot, [s]hutdown"
 # Set shut down, restart and locking features
-bindsym $mod+0 mode "$mode_system"
+# bindsym $mod+0 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
     bindsym l exec --no-startup-id i3exit lock, mode "default"
@@ -289,7 +299,7 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
+# bindsym $mod+9 exec --no-startup-id blurlock
 
 # Autostart applications
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -337,49 +347,6 @@ set_from_resource $term_color12    color12
 set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
-
-# Start i3bar to display a workspace bar (plus the system information i3status if available)
-bar {
-	i3bar_command i3bar
-	status_command i3status
-	position bottom
-    workspace_buttons yes
-
-## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
-#	tray_output primary
-#	tray_output eDP1
-
-	bindsym button4 nop
-	bindsym button5 nop
-#   font xft:URWGothic-Book 11
-    # hides workspace names
-    strip_workspace_numbers no
-
-#     colors {
-#         background #1b1b1b
-#         statusline #F9FAF9
-#         separator  #454947
-#
-# #                      border  backgr. text
-#         focused_workspace  #F9FAF9 #FFBB7F #292F34
-#         active_workspace   #595B5B #353836 #FDF6E3
-#         inactive_workspace #595B5B #222D31 #EEE8D5
-#         binding_mode       #16a085 #2C2C2C #F9FAF9
-#         urgent_workspace   #16a085 #FDF6E3 #E5201D
-#
-    colors {
-        background #1b1b1b
-        statusline #FFBB7F
-        separator  #454947
-
-        #                      border  backgr. text
-        focused_workspace  #FFBB7F #1b1b1b #FFBB7F
-        active_workspace   #595B5B #1b1b1b #FFBB7F
-        inactive_workspace #595B5B #1b1b1b #FFBB7F
-        binding_mode       #16a085 #2C2C2C #F9FAF9
-        urgent_workspace   #16a085 #FDF6E3 #E5201D
-    }
-}
 
 # hide/unhide i3status bar
 bindsym $mod+m bar mode toggle
@@ -459,5 +426,5 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-exec --no-startup-id /home/quaidr/.i3/i3start.sh
+exec_always --no-startup-id ~/.i3/i3_startup.sh >> ~/i3_startup.log 2>&1
+exec_always --no-startup-id ~/.config/polybar/polybar_startup.sh >> ~/i3_startup.log 2>&1

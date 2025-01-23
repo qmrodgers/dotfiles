@@ -2,7 +2,7 @@
 zshrc_dir=$(dirname "${(%):-%x}")
 export PATH=$PATH:~/.proto/shims
 export PATH=$PATH:~/custom_scripts
-export XDG_CONFIG_HOME=$HOME
+# export XDG_CONFIG_HOME=$HOME
 export MANPAGER=nvim
 
 # SOURCE HIDDEN ENV VARS
