@@ -7,5 +7,5 @@ Attempting to source zshrc in \$HOME ($HOME/.zshrc)
 EOF
 source $HOME/.zshrc
 
-feh --bg-scale $BG_IMAGE
+BG_IMAGE
 echo "I3 launched..."
