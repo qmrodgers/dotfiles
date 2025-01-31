@@ -1,0 +1,15 @@
+neofetch; Arch-linux staple
+proto; Multi-language version manager
+nvim
+mullvad-vpn-bin; VPN
+mullvad-browser-bin; VPN Browser
+vivaldi; For-fun browser
+zerotier-one; peer-to-peer connector
+zsh; better shell
+zsh-theme-powerlevel10k; better theme for the better shell
+i3; window manager
+picom; x11 compositor (better i3 styling)
+i3-swallow
+polybar; better bars for i3
+autotiling; automatic tiling for i3
+xf86-video-intel

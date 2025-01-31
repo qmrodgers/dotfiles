@@ -38,4 +38,6 @@ alias v="nvim"
 alias sv="sudo -E -s nvim"
 alias ll="ls --color=auto -la"
 alias find_font="cat ~/Desktop/nerd_fonts_reference.txt | grep"
+alias sclip="xclip -sel clip"
+alias scolor="xcolor | sclip"
 autoload -Uz cdp
