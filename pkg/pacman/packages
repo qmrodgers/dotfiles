@@ -13,3 +13,5 @@ i3-swallow
 polybar; better bars for i3
 autotiling; automatic tiling for i3
 xf86-video-intel
+fd; file finder
+fzf; file fuzzy search
