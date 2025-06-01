@@ -36,7 +36,7 @@ font xft:JetBrainsMono Nerd Font Mono 14
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec alacritty
+bindsym $mod+Return exec kitty
 
 # kill focused window
 bindsym $mod+q kill
@@ -317,7 +317,7 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
 exec_always --no-startup-id autotiling
-exec --no-startup-id picom --log-level=debug --config ~/.config/picom/picom.conf -b 
+# exec --no-startup-id picom --log-level=debug --config ~/.config/picom/picom.conf -b 
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:
