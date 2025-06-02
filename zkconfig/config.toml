@@ -1,0 +1,139 @@
+[notebook]
+dir = "~/zettelkasten"
+
+# NOTE SETTINGS
+[note]
+
+# Ignore README.md
+ignore = ["README.md"]
+
+# Language used when writing notes.
+# This is used to generate slugs or with date formats
+language = "en"
+
+# The default title used for new notes, if no `--title` flag is provided
+default-title = "Untitled"
+
+# Template used to generate a note's filename, without extension.
+filename = "{{format-date now \"%Y-%m-%d@%H:%M:%S\"}}-{{slug title}}"
+
+# The file extension used for the notes
+extension = "md"
+
+id-format = "date"
+id-date-format = "%Y%m%d%H%M%S"
+
+# Template used to generate a note's content.
+# If not an absolute path, it is relative to .zk/templates/
+template = "default.md"
+
+# Configure random ID generation
+
+# The charset used for random IDs.
+id-charset = "alphanum"
+
+# Length of the generated IDs.
+id-length = 4
+
+# Letter case for the random IDs.
+id-case = "lower"
+
+
+# EXTRA VARIABLES
+[extra]
+author = "Quaid"
+
+[group.journal]
+paths = ["journal"]
+
+[group.journal.note]
+template = "journal.md"
+filename = "{{format-date now \"%Y-%m-%d\"}}"
+
+[group.projects]
+paths = ["projects"]
+
+[group.projects.note]
+template = "projects.md"
+
+[group.learning]
+paths = ["learning"]
+
+[group.learning.note]
+template = "learning.md"
+
+[group.notes]
+paths = ["notes"]
+
+[group.notes.note]
+template = "note.md"
+
+[group.guides]
+paths = ["guides"]
+
+[group.guides.note]
+template = "guide.md"
+
+
+
+# MARKDOWN SETTINGS
+[format.markdown]
+# Enable support for #hashtags
+hashtags = true
+# Enable support for :colon:separated:tags:
+colon-tags = true
+
+multiword-tags = true
+
+link-format = "[[{{filename}}]]"
+
+# EXTERNAL TOOLS
+[tool]
+
+# Default editor used to open notes.
+editor = "nvim"
+
+# Default shell used by aliases and commands.
+shell = "zsh"
+
+# Pager used to scroll through long output.
+pager = "less -FIRX"
+
+# Command used to preview a note during interactive fzf mode.
+fzf-preview = "bat -p --color always {-1}"
+
+# NAMED FILTERS
+[filter]
+recents = "--sort created- --created-after 'last two weeks'"
+
+# COMMAND ALIASES
+[alias]
+
+# Edit zk configuration
+config = "cd $HOME/.config/zk; nvim config.toml; cd -;"
+
+# Edit the last modified note.
+edlast = "zk edit --limit 1 --sort modifier- $@"
+
+# Edit the notes selected interactively among the notes created the last two weeks
+recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
+
+daily = "zk --no-input new \"$ZK_NOTEBOOK_DIR/journal\""
+
+learn = "zk --no-input new \"$ZK_NOTEBOOK_DIR/learning\" --title \"$1\""
+
+prj = "zk --no-input new \"$ZK_NOTEBOOK_DIR/projects\" --title \"$1\""
+
+guide = "zk --no-input new \"$ZK_NOTEBOOK_DIR/guides\" --title \"$1\""
+
+note = "zk --no-input new \"$ZK_NOTEBOOK_DIR/notes\" --title \"$1\""
+
+# LSP (EDITOR INTEGRATION)
+[lsp]
+
+[lsp.diagnostics]
+# Report titles of wiki-links as hints.
+wiki-title = "hint"
+# Warn for dead links between notes.
+dead-link = "error"
+

@@ -12,6 +12,9 @@ picom; x11 compositor (better i3 styling)
 i3-swallow
 polybar; better bars for i3
 autotiling; automatic tiling for i3
-xf86-video-intel
 fd; file finder
 fzf; file fuzzy search
+zk; zettlekasten note command-line tool
+task; task-warrior, for creating, organizing, and creating tasks
+taskwarrior-tui; tui component to display tasks
+xf86-video-intel

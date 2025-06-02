@@ -2,6 +2,7 @@
 zshrc_dir=$(dirname "${(%):-%x}")
 export PATH=$PATH:~/.proto/shims
 export PATH=$PATH:~/custom_scripts
+export ZK_NOTEBOOK_DIR="${HOME}/zettelkasten"
 # export XDG_CONFIG_HOME=$HOME
 export MANPAGER="nvim +Man! -"
 
