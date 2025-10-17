@@ -1,6 +1,7 @@
+
 # {{title}}
 
-Tags:
+Tags: #zettel #note
 
 ---
 

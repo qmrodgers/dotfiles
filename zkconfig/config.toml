@@ -38,7 +38,6 @@ id-length = 4
 # Letter case for the random IDs.
 id-case = "lower"
 
-
 # EXTRA VARIABLES
 [extra]
 author = "Quaid"
@@ -50,31 +49,24 @@ paths = ["journal"]
 template = "journal.md"
 filename = "{{format-date now \"%Y-%m-%d\"}}"
 
-[group.projects]
-paths = ["projects"]
+[group.devotionals]
+paths = ["devotionals"]
 
-[group.projects.note]
-template = "projects.md"
+[group.devotionals.note]
+template = "devotionals.md"
+filename = "{{format-date now \"%Y-%m-%d\"}}"
 
-[group.learning]
-paths = ["learning"]
+[group.zettels]
+paths = ["zettels"]
 
-[group.learning.note]
-template = "learning.md"
+[group.zettels.note]
+template = "zettels.md"
 
-[group.notes]
-paths = ["notes"]
+[group.private]
+paths = ["private"]
 
-[group.notes.note]
-template = "note.md"
-
-[group.guides]
-paths = ["guides"]
-
-[group.guides.note]
-template = "guide.md"
-
-
+[group.private.note]
+template = "zettels.md"
 
 # MARKDOWN SETTINGS
 [format.markdown]
@@ -120,13 +112,17 @@ recent = "zk edit --sort created- --created-after 'last two weeks' --interactive
 
 daily = "zk --no-input new \"$ZK_NOTEBOOK_DIR/journal\""
 
-learn = "zk --no-input new \"$ZK_NOTEBOOK_DIR/learning\" --title \"$1\""
+journal = "zk --no-input new \"$ZK_NOTEBOOK_DIR/journal\""
 
-prj = "zk --no-input new \"$ZK_NOTEBOOK_DIR/projects\" --title \"$1\""
+devo = "zk --no-input new \"$ZK_NOTEBOOK_DIR/devotionals\""
 
-guide = "zk --no-input new \"$ZK_NOTEBOOK_DIR/guides\" --title \"$1\""
+devotional = "zk --no-input new \"$ZK_NOTEBOOK_DIR/devotionals\""
 
-note = "zk --no-input new \"$ZK_NOTEBOOK_DIR/notes\" --title \"$1\""
+zettel = "zk --no-input new \"$ZK_NOTEBOOK_DIR/zettels\" --title \"$1\""
+
+note = "zk --no-input new \"$ZK_NOTEBOOK_DIR/zettels\" --title \"$1\""
+
+private = "zk --no-input new \"$ZK_NOTEBOOK_DIR/private\" --title \"$1\""
 
 # LSP (EDITOR INTEGRATION)
 [lsp]

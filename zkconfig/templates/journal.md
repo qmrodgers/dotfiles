@@ -1,8 +1,9 @@
+
 # {{format-date now "%Y-%m-%d"}} - Daily Journal
 
 Authored By: **Quaid Rodgers**
 
-Tags: #journal #
+Tags: #journal
 
 ---
 
