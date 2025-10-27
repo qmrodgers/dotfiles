@@ -1,3 +1,7 @@
+# Keep in config.fish so scripts know nvim alias
+alias nvim="env NVIM_APPNAME=quaid_nvim nvim"
+alias v="nvim"
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     # echo "This is an interactive session"
@@ -5,7 +9,7 @@ if status is-interactive
     source ~/.config/fish/aliases.fish
     source ~/.config/fish/functions.fish
     source ~/.config/fish/quaid.fish
-    
+
     set -gx EDITOR nvim
     set -gx SUDO_EDITOR $EDITOR
     set -gx MANPAGER 'nvim +Man!'

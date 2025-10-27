@@ -1,6 +1,3 @@
-alias v="nvim"
-alias vz="env NVIM_APPNAME=lazy_nvim nvim"
-
 # File system
 alias ls='eza -lh --group-directories-first --icons=auto'
 alias lsa='ls -a'
