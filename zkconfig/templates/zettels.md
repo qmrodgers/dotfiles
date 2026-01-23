@@ -1,27 +1,21 @@
 # {{title}}
 
 **Date:** {{format-date now "%Y-%m-%d"}}
-**ID:** {{id}}
 
 ---
 
-## Summary
+## What is it
 
-<!-- Briefly state the core idea or concept of this note. -->
 
-## Details
+## What I learned
 
-<!-- Expand on the idea, provide explanations, examples, or context. -->
 
 ## Connections
 
-- [[Related Note 1]]
-- [[Related Note 2]]
+-
 
-## References
+## Source
 
-<!-- List sources, links, or further reading. -->
+-
 
----
-
-#{{slug title}} #zettel
+#zettel

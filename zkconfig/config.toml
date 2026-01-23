@@ -42,11 +42,11 @@ id-case = "lower"
 [extra]
 author = "Quaid"
 
-[group.journal]
-paths = ["journal"]
+[group.worklog]
+paths = ["worklog"]
 
-[group.journal.note]
-template = "journal.md"
+[group.worklog.note]
+template = "worklog.md"
 filename = "{{format-date now \"%Y-%m-%d\"}}"
 
 [group.devotionals]
@@ -110,9 +110,9 @@ edlast = "zk edit --limit 1 --sort modifier- $@"
 # Edit the notes selected interactively among the notes created the last two weeks
 recent = "zk edit --sort created- --created-after 'last two weeks' --interactive"
 
-daily = "zk --no-input new \"$ZK_NOTEBOOK_DIR/journal\""
+daily = "zk --no-input new \"$ZK_NOTEBOOK_DIR/worklog\""
 
-journal = "zk --no-input new \"$ZK_NOTEBOOK_DIR/journal\""
+worklog = "zk --no-input new \"$ZK_NOTEBOOK_DIR/worklog\""
 
 devo = "zk --no-input new \"$ZK_NOTEBOOK_DIR/devotionals\""
 
